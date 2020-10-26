@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour{
 
     private Vector3 mouse_pos_old;
+    private Vector3 direction;
     private float speed;
 
     
@@ -29,13 +28,15 @@ public class PlayerMovement : MonoBehaviour{
 
         if(Input.GetKey(KeyCode.Mouse0))speed *=1.1f;
         if(Input.GetKey(KeyCode.Mouse1))speed /=1.1f;
-        
+
+        direction = transform.forward;
         
     }
 
     void OnCollisionEnter(Collision collision){
-        Debug.Log("In a Collision \n ");
-        print("In a Collision\n ");
+        
+        transform.forward = Vector3.Reflect(direction, collision.GetContact(0).normal);
+        
     }
     
 }
